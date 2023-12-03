@@ -1,0 +1,291 @@
+{
+	"info": {
+		"_postman_id": "d28a6d1b-2085-47a6-b5bb-7fbc168a93d4",
+		"name": "Black Jack",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get a new deck",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f7ef6a57-53f0-477b-b17e-722b4dcec503",
+						"exec": [
+							"//make response body a variable that can be read through\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"\r",
+							"//status code test\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"//confirm success in getting new deck\r",
+							"pm.test(\"success returns true\", function () {\r",
+							"    pm.expect(jsonData[\"success\"]).to.eql(true);\r",
+							"});\r",
+							"\r",
+							"//confirm new deck unshuffled\r",
+							"pm.test(\"success returns true\", function () {\r",
+							"    pm.expect(jsonData[\"shuffled\"]).to.eql(false);\r",
+							"});\r",
+							"\r",
+							"//setting variables\r",
+							"var remaining = jsonData[\"remaining\"];\r",
+							"\r",
+							"//confirming remaining cards in console log\r",
+							"console.log(\"remaining: \"+remaining)\r",
+							"\r",
+							"//setting remaining as an environment variable\r",
+							"pm.environment.set(\"remaining\", remaining)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "cc162406-2ea1-432d-8311-92557c991993",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://deckofcardsapi.com/api/deck/new/"
+			},
+			"response": []
+		},
+		{
+			"name": "Shuffle the cards",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "66e39af8-40f6-4ebf-a0a6-a4fc857eb2fb",
+						"exec": [
+							"//status code test\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"//make response body a variable that can be read through\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"\r",
+							"//confirm deck is shuffled\r",
+							"pm.test(\"shuffled returns true\", function () {\r",
+							"    pm.expect(jsonData[\"shuffled\"]).to.eql(true);\r",
+							"});\r",
+							"\r",
+							"//confirm full deck after shuffle\r",
+							"pm.test(\"remaining returns 52\", function () {\r",
+							"    pm.expect(jsonData[\"remaining\"]).to.eql(52);\r",
+							"});\r",
+							"\r",
+							"//setting deck id variable\r",
+							"var deck_id = jsonData[\"deck_id\"];\r",
+							"\r",
+							"//setting deck id as an environment variable\r",
+							"pm.environment.set(\"deck_id\", deck_id)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "ccf61685-c10b-494d-8690-7640b8227cc0",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1",
+					"protocol": "https",
+					"host": [
+						"deckofcardsapi",
+						"com"
+					],
+					"path": [
+						"api",
+						"deck",
+						"new",
+						"shuffle",
+						""
+					],
+					"query": [
+						{
+							"key": "deck_count",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Player One Draw",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "212df40f-7cea-4756-961b-6736befe3d0c",
+						"exec": [
+							"//status code test\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"//make response body a variable that can be read through\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"\r",
+							"//confirm successful draw for Player One\r",
+							"pm.test(\"success returns true\", function () {\r",
+							"    pm.expect(jsonData[\"success\"]).to.eql(true);\r",
+							"});\r",
+							"\r",
+							"//getting the value of the first card then logging it for the console\r",
+							"const value_one = jsonData[\"cards\"][0][\"value\"];\r",
+							"console.log(\"value_one = \"+value_one)\r",
+							"\r",
+							"//getting the value of the second card then logging it for the console\r",
+							"const value_two = jsonData[\"cards\"][1][\"value\"];\r",
+							"console.log(\"value_two = \"+value_two)\r",
+							"\r",
+							"\r",
+							"//getting the total value of player one's hand then logging it for the console, far more work needed here to successfully complete this which can be discussed in depth during our technical discussion\r",
+							"var total_one = value_one+value_two;\r",
+							"console.log(\"player one total = \"+total_one)\r",
+							"\r",
+							"//setting player one's total as an environment variable\r",
+							"pm.environment.set(\"total_one\", total_one)"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "cc60a730-de23-42b3-b8ed-f1f8a54fda12",
+						"exec": [
+							"/* 1 second delay */\r",
+							"setTimeout(() => {}, 1000);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "710cad8a-7f25-4866-9f63-3843a5bc9ae9",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://deckofcardsapi.com/api/deck/{{deck_id}}/draw/?count=2",
+					"protocol": "https",
+					"host": [
+						"deckofcardsapi",
+						"com"
+					],
+					"path": [
+						"api",
+						"deck",
+						"{{deck_id}}",
+						"draw",
+						""
+					],
+					"query": [
+						{
+							"key": "count",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Player Two Draw",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "212df40f-7cea-4756-961b-6736befe3d0c",
+						"exec": [
+							"//status code test\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"//make response body a variable that can be read through\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"\r",
+							"//confirm successful draw for Player Two\r",
+							"pm.test(\"success returns true\", function () {\r",
+							"    pm.expect(jsonData[\"success\"]).to.eql(true);\r",
+							"});\r",
+							"\r",
+							"//getting the value of the first card then logging it for the console\r",
+							"const value_one = jsonData[\"cards\"][0][\"value\"];\r",
+							"console.log(\"value_one = \"+value_one)\r",
+							"\r",
+							"//getting the value of the second card then logging it for the console\r",
+							"const value_two = jsonData[\"cards\"][1][\"value\"];\r",
+							"console.log(\"value_two = \"+value_two)\r",
+							"\r",
+							"//getting the total value of player one's hand then logging it for the console, far more work needed here to successfully complete this which can be discussed in depth during our technical discussion\r",
+							"var total_two = value_one+value_two;\r",
+							"console.log(\"player two total = \"+total_two)\r",
+							"\r",
+							"//setting player two's total as an environment variable\r",
+							"pm.environment.set(\"total_two\", total_two)"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2776dd50-c527-425a-91f1-2a59e3fab37c",
+						"exec": [
+							"/* 1 second delay */\r",
+							"setTimeout(() => {}, 1000);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "9cc3fbf0-bd51-47f8-83b2-96f3a0fffd8c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://deckofcardsapi.com/api/deck/{{deck_id}}/draw/?count=2",
+					"protocol": "https",
+					"host": [
+						"deckofcardsapi",
+						"com"
+					],
+					"path": [
+						"api",
+						"deck",
+						"{{deck_id}}",
+						"draw",
+						""
+					],
+					"query": [
+						{
+							"key": "count",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
