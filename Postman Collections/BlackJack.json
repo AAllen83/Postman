@@ -27,7 +27,7 @@
 							"});\r",
 							"\r",
 							"//confirm new deck unshuffled\r",
-							"pm.test(\"success returns true\", function () {\r",
+							"pm.test(\"shuffled returns false\", function () {\r",
 							"    pm.expect(jsonData[\"shuffled\"]).to.eql(false);\r",
 							"});\r",
 							"\r",
