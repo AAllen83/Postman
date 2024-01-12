@@ -273,14 +273,16 @@
 							"if (pm.environment.get(\"player_one\") > pm.environment.get(\"player_two\")) {\r",
 							"    var winner = \"Player One is the Winner\";\r",
 							"    pm.environment.set(\"winner\", winner);\r",
-							"    console.log(\"The winner is \"+player_two)\r",
-							"}/* else if (pm.collectionVariables.get(\"player_one\") === pm.collectionVariables.get(\"player_two\")) {\r",
-							"    var winner = \"Draw\";\r",
+							"    console.log(\"The winner is player one with \"+player_one)\r",
+							"} else if (pm.environment.get(\"player_one\") === pm.environment.get(\"player_two\")) {\r",
+							"    var winner = \"This game is a Draw\";\r",
 							"    pm.environment.set(\"winner\", winner);\r",
-							"} else (pm.collectionVariables.get(\"player_one\") < pm.collectionVariables.get(\"player_two\")) {\r",
+							"    console.log(\"This game is a Draw with both hands having \"+player_one)\r",
+							"} else (pm.environment.get(\"player_one\") < pm.environment.get(\"player_two\")) {\r",
 							"    var winner = \"Player Two is the Winner\";\r",
 							"    pm.environment.set(\"winner\", winner);\r",
-							"}*/"
+							"    console.log(\"The winner is player two with \"+player_two)\r",
+							"}"
 						],
 						"type": "text/javascript"
 					}
