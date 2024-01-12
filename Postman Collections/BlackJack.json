@@ -266,7 +266,19 @@
 							"console.log(\"player two total = \"+player_two)\r",
 							"\r",
 							"//setting player one's total as an environment variable\r",
-							"pm.environment.set(\"player_two\", player_two)"
+							"pm.environment.set(\"player_two\", player_two)\r",
+							"\r",
+							"//Winner\r",
+							"if (player_one > player_two){\r",
+							"    var winner = \"Player One is the Winner\"\r",
+							"    pm.environment.set(\"winner\", winner)\r",
+							"} else if (player_one === player_two){\r",
+							"    var winner = \"Draw\"\r",
+							"    pm.environment.set(\"winner\", winner)\r",
+							"} else (player_one < player_two){\r",
+							"    var winner = \"Player Two is the Winner\"\r",
+							"    pm.environment.set(\"winner\", winner)\r",
+							"}"
 						],
 						"type": "text/javascript"
 					}
