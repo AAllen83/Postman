@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "d28a6d1b-2085-47a6-b5bb-7fbc168a93d4",
 		"name": "Black Jack",
-		"description": "Here you'll find a two player game of Black Jack where each player only gets two cards and all face cards are valued at 10. To see who won using",
+		"description": "Here you'll find a two player game of Black Jack where each player only gets two cards and all face cards are valued at 10.\n\n- Before playing make sure that you've selected the environment \"Card Game\" from the environments drop-down at the top-right of this page.\n- To see who has won, you can look at the console(opened from the 'Console' button at the bottom right) or open the environment variables(next to the environment drop-down panel) where I return a variable 'winner'.\n- You can also play the game by right-clicking Black Jack in the Collections panel then selecting 'Run Collection'",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
