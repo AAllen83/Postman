@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "0a858299-d011-4200-af32-829d216df942",
 		"name": "Project K",
+		"description": "Project K is an automated framework created to test API's & Webhooks for an application designed to help healthcare professionals and staffing agencies",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
